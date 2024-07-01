@@ -37,6 +37,7 @@ const fs = __importStar(require("fs"));
 const secret = JSON.parse(fs.readFileSync('secret.json').toString());
 const secretKey = Uint8Array.from(secret);
 const ownerKeyPair = web3_js_1.Keypair.fromSecretKey(secretKey);
+console.log(ownerKeyPair.publicKey.toBase58());
 const transaction = new web3_js_1.Transaction(); // Making a tansaction many instruction can be added to it
 const receipient = new web3_js_1.PublicKey("4bCtf9EMjHUFUs8hoyka2Jq2DazpNs18ikqcYNzDozaK");
 const sendSolInstruction = web3_js_1.SystemProgram.transfer({
@@ -47,7 +48,7 @@ const sendSolInstruction = web3_js_1.SystemProgram.transfer({
 // Making an Instruction to transfer SOL and adding it in transaction
 transaction.add(sendSolInstruction);
 // const connection = new Connection("https://docs-demo.solana-mainnet.quiknode.pro");
-const connection = new web3_js_1.Connection((0, web3_js_1.clusterApiUrl)('devnet'), 'confirmed');
+const connection = new web3_js_1.Connection((0, web3_js_1.clusterApiUrl)('testnet'));
 const sendTransaction = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const signature = yield (0, web3_js_1.sendAndConfirmTransaction)(connection, transaction, [ownerKeyPair], {
